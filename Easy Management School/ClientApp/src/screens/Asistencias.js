@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../components/Navbar";
+import LogoEscuela from "../images/logo-escuela.jpg"
 
 function Asistencias() {
-	return (
-		<div>Asistencias</div>
-	)
+  return (
+    <>
+      <Navbar urlImagen={LogoEscuela}/>
+    </>
+  );
 }
 
-export default Asistencias
+export default Asistencias;

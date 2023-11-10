@@ -1,8 +1,13 @@
 import React from 'react'
+import Navbar from "../components/Navbar";
+import LogoEscuela from "../images/logo-escuela.jpg"
+
 
 function Sanciones() {
 	return (
-		<div>Sanciones</div>
+		<div>
+			<Navbar urlImagen={LogoEscuela}/>
+		</div>
 	)
 }
 

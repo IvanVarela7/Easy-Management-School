@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import IniciarSesion from "../components/IniciarSesion/IniciarSesion";
 
 function Login() {
-	return (
-		<div>Login</div>
-	)
+  return (
+    <div>
+      <IniciarSesion />
+    </div>
+  );
 }
 
-export default Login
+export default Login;

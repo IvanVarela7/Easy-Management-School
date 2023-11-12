@@ -19,7 +19,7 @@ namespace Easy_Management_School.Controllers
             _db = db;
         }
 
-        //obtener todos los usuarios
+        // Obtener todos los usuarios
         [HttpGet]
         [Route("GetUsuarios")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -27,6 +27,24 @@ namespace Easy_Management_School.Controllers
         {
             _logger.LogInformation("Obtener todos los usuarios");
             return Ok(_db.Usuarios.ToList());
+        }
+
+
+        // Iniciar Sesion
+        [HttpGet]
+        [Route("IniciarSesion/{nombreUsuario}/{contraseniaUsuario}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<List<Usuario>> IniciarSesion(string nombreUsuario, string contraseniaUsuario)
+        {
+            var usuarios = _db.Usuarios.Where(usuarios => usuarios.Nombre_usuario.Equals(nombreUsuario) && usuarios.Contrasenia_usuario.Equals(contraseniaUsuario)).ToList();
+
+            if (usuarios == null)
+            {
+                return NotFound();
+            }
+
+            return usuarios;
+
         }
 
 

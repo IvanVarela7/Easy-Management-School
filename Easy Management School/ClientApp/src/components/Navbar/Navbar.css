@@ -1,0 +1,66 @@
+.contenedor-nav {
+  display: flex;
+  align-items: center;
+  background-color: #038cc6;
+  padding: 10px;
+}
+
+.contenedor-nav img {
+  max-width: 100px;
+  margin-right: 20px;
+}
+
+.logo-escuela{
+	max-height: 50px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+	color: white;
+	font-weight: 450;
+}
+
+ul li {
+  margin-right: 20px;
+}
+
+/* Estilo para el elemento de la lista desplegable */
+.dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown span {
+  cursor: pointer;
+}
+
+/* Estilo para la lista desplegable oculta */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #038cc6;
+  min-width: 150px;
+  z-index: 1;
+  list-style-type: none;
+	text-decoration: none;
+}
+
+.dropdown-content li {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Mostrar la lista desplegable cuando el cursor está sobre el elemento .dropdown */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Cambiar el color del texto en la lista desplegable cuando el cursor está sobre un elemento */
+.dropdown-content li:hover {
+  background-color: #0470a0;
+}
+
+/* Estilo para los enlaces en la lista desplegable */

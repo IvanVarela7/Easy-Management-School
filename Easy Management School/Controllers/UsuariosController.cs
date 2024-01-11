@@ -1,5 +1,6 @@
 ﻿using Easy_Management_School.Datos;
 using Easy_Management_School.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +9,7 @@ namespace Easy_Management_School.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsuariosController : ControllerBase
     {
         private readonly ILogger<UsuariosController> _logger;

@@ -1,10 +1,39 @@
 using Easy_Management_School.Datos;
 using Microsoft.EntityFrameworkCore;
+using Easy_Management_School.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Configuration.AddJsonFile("appsettings.json");
+var secretkey = builder.Configuration.GetSection("settings").GetSection("secretkey").ToString();
+var keyBytes = Encoding.UTF8.GetBytes(secretkey);
+
+
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+}).AddJwtBearer(config =>
+{
+    config.RequireHttpsMetadata = false;
+    config.SaveToken = true;
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
 
 builder.Services.AddControllersWithViews();
 
@@ -20,7 +49,7 @@ builder.Services.AddCors(options =>
     {
         app.AllowAnyOrigin()
         .AllowAnyMethod()
-        .AllowAnyMethod();
+        .AllowAnyHeader();
     });
 });
 
@@ -34,9 +63,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCors("NuevaPolitica");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+// nuevo
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 app.MapControllerRoute(

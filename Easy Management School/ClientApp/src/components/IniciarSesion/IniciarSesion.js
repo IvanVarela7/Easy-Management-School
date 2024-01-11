@@ -5,14 +5,14 @@ import "../IniciarSesion/IniciarSesion.css";
 import { useNavigate } from "react-router-dom";
 
 function IniciarSesion() {
-  
+
   const navigate = useNavigate();
 
   //const cookies = new Cookies
-  const baseUrl = "http://localhost:5106/api/usuarios/iniciarsesion";
+  const baseUrl = "http://localhost:5106/api/autenticacion/validar"; // Endpoint de autenticación
   const [form, setForm] = useState({
-    usuario: "",
-    contrasenia: "",
+    Nombre_usuario: "",
+    Contrasenia_usuario: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,25 +24,23 @@ function IniciarSesion() {
   };
 
   const ingresar = async () => {
-    await axios
-      .get(baseUrl + `/${form.usuario}/${form.contrasenia}`)
-      .then((response) => {
-        return response.data;
-      })
-      .then((response) => {
-        if (response.length > 0) {
-          var respuesta = response[0];
-          console.log(respuesta);
+    try {
+      const response = await axios.post(baseUrl, form); // Enviar los datos al endpoint POST
+      const { token } = response.data;
 
-          navigate("/home");
-        } else {
-          alert("El usuario o la contraseña no son correctos");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      if (token) {
+        // Si se recibe un token válido, redirigir a la página de inicio
+        navigate("/home");
+      } else {
+        alert("El usuario o la contraseña no son correctos");
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("Hubo un error al iniciar sesión");
+    }
   };
+
+
 
   return (
     <div className="contenedor-principal">
@@ -53,17 +51,17 @@ function IniciarSesion() {
           <input
             className="usuario"
             type="text"
-            name="usuario"
+            name="Nombre_usuario"
             placeholder="Usuario"
-            value={form.usuario}
+            value={form.Nombre_usuario}
             onChange={handleChange}
           />
           <input
             className="contraseña"
             type="password"
-            name="contrasenia"
+            name="Contrasenia_usuario"
             placeholder="Contraseña"
-            value={form.contrasenia}
+            value={form.Contrasenia_usuario}
             onChange={handleChange}
           />
           <button className="boton-login-ingresar" onClick={ingresar}>
